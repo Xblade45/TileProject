@@ -58,7 +58,7 @@ public class PlayingState extends GameState {
 
         startGameTimer.start();
         
-        Sound.play("countdownTimer");
+        Sound.play("start");
     }
 
     @Override
@@ -66,7 +66,7 @@ public class PlayingState extends GameState {
         
         board.update();
         
-        if(!gameUnPaused && startGameTimer.getPresentTime() == 0){
+        if(startGameTimer.getPresentTime() == -1 && !gameUnPaused){
             
             this.gameUnPaused = true;
             gameTimer.start();
@@ -87,8 +87,11 @@ public class PlayingState extends GameState {
         if(!gameUnPaused){
             g.setColor(Color.WHITE);
             g.setFont(countdownFont);
-            g.drawString(startGameTimer.getPresentTimeString(), 
-                    Panel.GETWIDTH/2 - g.getFontMetrics().stringWidth(startGameTimer.getPresentTimeString())/2, 
+            
+            String str = ((startGameTimer.getPresentTime()!=0)? startGameTimer.getPresentTimeString():"GO");
+            
+            g.drawString(str, 
+                    Panel.GETWIDTH/2 - g.getFontMetrics().stringWidth(str)/2, 
                     Panel.GETHEIGHT/2 + 50);
         }
             

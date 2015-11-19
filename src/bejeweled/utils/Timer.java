@@ -60,6 +60,7 @@ public class Timer {
                     
                     if(!isPaused){
                         if(System.currentTimeMillis() - startTime > 1000 || presentTime == countDown){
+                            
                             presentTime -= 1;
                             startTime = System.currentTimeMillis();
                         }

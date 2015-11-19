@@ -175,7 +175,7 @@ public class Board implements GameEngine, MouseListener, Runnable{
     @Override
     public final void init() {
         
-        this.clusterTimer = new Timer(1);
+        this.clusterTimer = new Timer(0);
         this.selectedTile = null;
         this.scoreCounter = new ScoreCounter();
         

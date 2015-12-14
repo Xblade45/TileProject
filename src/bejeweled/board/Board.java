@@ -5,9 +5,10 @@
  */
 package bejeweled.board;
 
-import bejeweled.gameState.GameEngine;
+import bejeweled.gameState.GameStateManager;
 import bejeweled.gameState.PlayingState;
 import bejeweled.utils.ScoreCounter;
+import bejeweled.utils.Sound;
 import bejeweled.utils.Timer;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -17,7 +18,7 @@ import java.awt.event.MouseListener;
  *
  * @author Xblade45
  */
-public class Board implements GameEngine, MouseListener, Runnable{
+public class Board implements MouseListener, Runnable{
 
     public static final int COLUMN = 8;// X Axis
     public static final int ROW = 8;// Y Axis
@@ -109,7 +110,7 @@ public class Board implements GameEngine, MouseListener, Runnable{
                 clusterTimer = new Timer(1);
                 clusterTimer.start();
 
-                if(playingState.isGameUnPaused())
+                if(playingState.getCurrentState() == GameStateManager.PLAYING_STATE)
                     scoreCounter.setScore(counter);
 
                 removeCluster(counter, i, posY, HORIZONTAL);
@@ -131,7 +132,7 @@ public class Board implements GameEngine, MouseListener, Runnable{
                 clusterTimer = new Timer(1);
                 clusterTimer.start();
 
-                if(playingState.isGameUnPaused())
+                if(playingState.getCurrentState() == GameStateManager.PLAYING_STATE)
                     scoreCounter.setScore(counter);
 
                 removeCluster(counter, posX, j, VERTICAL);
@@ -171,8 +172,7 @@ public class Board implements GameEngine, MouseListener, Runnable{
         }
     }
     
-    //Overridable methods
-    @Override
+    //methods
     public final void init() {
         
         this.clusterTimer = new Timer(0);
@@ -186,7 +186,6 @@ public class Board implements GameEngine, MouseListener, Runnable{
     @Override
     public void run() {}
     
-    @Override
     public void update() {
         
         for(int i = 0; i < COLUMN; i++){
@@ -205,7 +204,6 @@ public class Board implements GameEngine, MouseListener, Runnable{
         }
     }
         
-    @Override
     public void draw(Graphics g) {
         
         drawBoard(g);
@@ -227,12 +225,12 @@ public class Board implements GameEngine, MouseListener, Runnable{
             int clickY = (me.getY() - BOARDY)/Tile.HEIGHT;
 
             if(getTile(clickX, clickY).isSelected()){// if mousepressed tile is selected, unselect
-                
+                Sound.play("sound56");
                 getTile(clickX, clickY).setSelected(false);
                 this.selectedTile = null;
             }else{
                 if(!getTile(clickX, clickY).isSelected() && selectedTile == null){// if mousepressed tile is unselected, select
-                    
+                    Sound.play("sound56");
                     getTile(clickX, clickY).setSelected(true);
                     this.selectedTile = getTile(clickX, clickY);
                 }else{

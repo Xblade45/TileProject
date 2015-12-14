@@ -34,7 +34,7 @@ public class ScoreCounter {
     
     // Methods
     public void setScore(int nbOfTiles){
-        
+        Sound.play("magic-wand-1");
         this.score += baseScore + (nbOfTiles*baseScoreIncrement);
     }
     

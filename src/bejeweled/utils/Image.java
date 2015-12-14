@@ -21,7 +21,7 @@ public class Image {
         BufferedImage sprite = null;
         
         try{
-            sprite = ImageIO.read(Image.class.getClassLoader().getResource(folder + "/" + input + ".png"));
+            sprite = ImageIO.read(Image.class.getClassLoader().getResourceAsStream(folder + "/" + input + ".png"));
         }catch(IOException e){
             e.printStackTrace();
         }

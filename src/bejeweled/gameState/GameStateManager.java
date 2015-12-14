@@ -5,75 +5,80 @@
  */
 package bejeweled.gameState;
 
+import bejeweled.main.Panel;
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
+import java.util.Stack;
 
 /**
  *
  * @author Xblade45
  */
-public class GameStateManager implements GameEngine, MouseListener{
+public class GameStateManager implements MouseListener{
     
-    private final ArrayList<GameState> gameStates;
-    private int currentState;
+    protected static Stack<GameState> states;
     
-    public static final int MENUSTATE = 0;
-    public static final int PLAYINGSTATE = 1;
+    public static final int STARTING_STATE = 0;
+    public static final int PLAYING_STATE = 1;
+    public static final int ENDING_STATE = 2;
+    public static final int PAUSE_STATE = 3;
+    
+    protected final String BACK = "BACK";
+    
+    protected int bestScore;
+    
+    protected final Font TITLEFONT = new Font("Calibi", Font.BOLD, 100);
+    protected final Color COLOR = new Color(125, 25, 25);
     
     
     // Constructor
     public GameStateManager(){
         
-        this.gameStates = new ArrayList<>();
-        this.currentState = PLAYINGSTATE;
-        gameStates.add(new MenuState(this));
-        gameStates.add(new PlayingState(this));
+        states = new Stack<>();
+        bestScore = 0;
     }
+    
     
     // Methods
-    public void setState(int currentState){
-        
-        this.currentState = currentState;
-        gameStates.get(currentState).init();
+    public void push(GameState gamestate){
+        states.push(gamestate);
+    }
+    public void remove(){
+        states.pop();
+    }
+    
+    public void init(){
+        states.peek().init();
+    }
+    
+    public void update(){
+        states.peek().update();
+    }
+    
+    public void draw(Graphics g){
+        states.peek().draw(g);
+    }
+    
+    public void clear(Graphics g){
+        g.setColor(Color.WHITE);
+        g.fillRect(0, 0, Panel.WIDTH, Panel.HEIGHT);
     }
 
     @Override
-    public final void init() {}
-    
-    @Override
-    public void run() {
-        
-        gameStates.get(currentState).run();
+    public void mousePressed(MouseEvent e) {
+        states.peek().mousePressed(e);
     }
     
     @Override
-    public void update() {
-        
-        gameStates.get(currentState).update();
-    }
+    public void mouseClicked(MouseEvent e) {}
+    @Override
+    public void mouseReleased(MouseEvent e) {}
+    @Override
+    public void mouseEntered(MouseEvent e) {}
+    @Override
+    public void mouseExited(MouseEvent e) {}
     
-    @Override
-    public void draw(Graphics g) {
-        
-        gameStates.get(currentState).draw(g);
-    }
-
-    @Override
-    public void mouseClicked(MouseEvent me) {}
-    
-    @Override
-    public void mousePressed(MouseEvent me) {
-        
-        gameStates.get(currentState).mousePressed(me);
-    }
-    
-    @Override
-    public void mouseReleased(MouseEvent me) {}
-    @Override
-    public void mouseEntered(MouseEvent me) {}
-    @Override
-    public void mouseExited(MouseEvent me) {}
-
 }

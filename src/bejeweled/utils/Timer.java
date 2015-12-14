@@ -52,7 +52,7 @@ public class Timer {
     
     private void updateLoop(){
         
-        thread = new Thread(){
+        thread = new Thread("TimerThread" + countDown){
             
             public void run(){
                 

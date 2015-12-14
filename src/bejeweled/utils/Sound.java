@@ -5,10 +5,7 @@
  */
 package bejeweled.utils;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.net.URISyntaxException;
+import java.io.InputStream;
 import javazoom.jl.decoder.JavaLayerException;
 import javazoom.jl.player.Player;
 
@@ -22,12 +19,11 @@ public class Sound {
         
         try {
             
-            File file = new File(Sound.class.getClassLoader().getResource("audio/" + input + ".mp3").toURI());
-            FileInputStream fis = new FileInputStream(file);
-            final Player player = new Player(fis);
+            InputStream is = Sound.class.getClassLoader().getResourceAsStream("audio/" + input + ".mp3");
+            Player player = new Player(is);
             
-            Thread t = new Thread(){
-
+            Thread t = new Thread("SoundThread" + input){
+                
                 @Override
                 public void run() {
                     try {
@@ -40,7 +36,7 @@ public class Sound {
             };
             t.start();
             
-        }catch (FileNotFoundException | URISyntaxException | JavaLayerException e) {
+        }catch (JavaLayerException e) {
             e.printStackTrace();
         }
     }

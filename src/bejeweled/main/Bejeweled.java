@@ -20,7 +20,7 @@ public class Bejeweled {
     public static void main(String[] args) {
         
         JFrame frame = new JFrame("Bejeweled");
-        Panel p = new Panel();
+        Panel p = new Panel(frame);
         
         frame.setContentPane(p);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

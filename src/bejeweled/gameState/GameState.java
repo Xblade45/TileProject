@@ -6,6 +6,7 @@
 package bejeweled.gameState;
 
 import java.awt.Graphics;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
@@ -13,17 +14,13 @@ import java.awt.event.MouseListener;
  *
  * @author Xblade45
  */
-public abstract class GameState implements GameEngine, MouseListener {
+public abstract class GameState implements MouseListener{
     
     protected GameStateManager gsm;
 
-    @Override
     public void init() {}
-    @Override
     public void run() {}
-    @Override
     public void update() {}
-    @Override
     public void draw(Graphics g) {}
 
     @Override

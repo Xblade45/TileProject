@@ -6,7 +6,6 @@
 package bejeweled.board;
 
 import bejeweled.utils.Image;
-import bejeweled.gameState.GameEngine;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
@@ -15,7 +14,7 @@ import java.awt.image.BufferedImage;
  *
  * @author Xblade45
  */
-public class Tile implements GameEngine {
+public class Tile {
     
     
     // Self explanatory
@@ -166,24 +165,20 @@ public class Tile implements GameEngine {
             g.drawImage(image, aPosX, aPosY, null);
     }
 
-    //Overridable methods
-    @Override
+    //methods
     public final void init() {
     
         this.animation = new Animation();
         setType();
     }
     
-    @Override
     public void run() {}
     
-    @Override
     public void update() {
         
         animation.update();
     }
 
-    @Override
     public void draw(Graphics g) {
         
         drawTile(g);
